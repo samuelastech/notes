@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Notes</title>
+</head>
+<body>
+  <header>
+    <h1>Notes</h1>
+  </header>
+
+  <form onsubmit="controller.create(event)">
+    <input id="note" type="text" placeholder="Digite aqui" />
+    <button>Salvar</button>
+  </form>
+
+  <section id="notesPlace">
+  </section>
+
+  <script src="app/note/note-list.model.js"></script>
+  <script src="app/note/note.model.js"></script>
+  <script src="app/note/note.view.js"></script>
+  <script src="app/note/note.controller.js"></script>
+  <script>
+    const controller = new NoteController();
+  </script>
+</body>
+</html>
