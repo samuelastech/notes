@@ -1,8 +1,10 @@
 class Note {
   #text;
+  #createdBy;
 
-  constructor({ text }) {
+  constructor({ text, createdBy }) {
     this.#text = text;
+    this.#createdBy = createdBy;
   }
 
   get text() {
@@ -11,5 +13,12 @@ class Note {
 
   set text(content) {
     this.#text = content;
+  }
+
+  get parse() {
+    return {
+      text: this.#text,
+      createdBy: this.#createdBy,
+    };
   }
 }

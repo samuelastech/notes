@@ -12,7 +12,7 @@ class NoteView {
   }
 
   mountMural(model) {
-    this.#muralElement.innerHTML = this.#muralTemplate(model);
+    this.#muralTemplate(model).then((element) => this.#muralElement.innerHTML = element);
   }
 
   #noteFormTemplate() {
@@ -25,12 +25,18 @@ class NoteView {
   }
 
   #muralTemplate(model) {
-    return model.notes.map((note) => {
-      return `
-        <div>
-          <p>${note.text}</p>
-        </div>
-      `;
-    }).join('');
+    return model.notes.then((notes) => {
+      return notes.length
+        ? notes.map((note) => {
+            return `
+              <div>
+                <p>${note.text}</p>
+              </div>
+            `
+        }).join('')
+        : `
+          <div></div>
+        `;
+    });
   }
 }

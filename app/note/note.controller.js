@@ -1,16 +1,27 @@
 class NoteController {
   #inputNote;
-  #noteList;
+  #noteDAO;
+  #userDAO;
   #noteView;
 
   constructor() {
-    this.#noteList = new NoteList();
+    ConnectionFactory.getConnection()
+      .then((connection) => this.#init(connection));
+  }
+
+  #init(connection) {
+    this.#userDAO = new UserDAO();
+
+    this.#noteDAO = new NoteDAO({
+      connection,
+      user: this.#userDAO.findOne(),
+    });
     this.#noteView = new NoteView({
       muralElement: document.querySelector('#notesPlace'),
       formElement: document.querySelector('#notesForm'),
     });
     this.#noteView.mountNoteForm();
-    this.#noteView.mountMural(this.#noteList);
+    this.#noteView.mountMural(this.#noteDAO);
     this.#inputNote = document.querySelector('#note');
   }
 
@@ -22,8 +33,10 @@ class NoteController {
     event.preventDefault();
     const note = new Note({
       text: this.#inputNote.value,
+      createdBy: this.#userDAO.findOne(),
     });
-    this.#noteList.create(note);
-    this.#noteView.mountMural(this.#noteList);
+    this.#noteDAO.create(note.parse).then(() => {
+      this.#noteView.mountMural(this.#noteDAO);
+    });
   }
 }
