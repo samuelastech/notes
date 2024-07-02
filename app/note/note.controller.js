@@ -39,4 +39,14 @@ class NoteController {
       this.#noteView.mountMural(this.#noteDAO);
     });
   }
+
+  /**
+   * Updates a note
+   */
+  update(event) {
+    event.preventDefault();
+    const key = event.target.dataset.id;
+    const content = event.target.textContent.trim();
+    this.#noteDAO.update(Number(key), content);
+  }
 }

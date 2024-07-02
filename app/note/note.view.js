@@ -29,7 +29,7 @@ class NoteView {
       return notes.length
         ? notes.map((note) => {
             return `
-              <div>
+              <div contenteditable="true" onblur="noteController.update(event)" data-id="${note.key}">
                 <p>${note.text}</p>
               </div>
             `
