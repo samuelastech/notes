@@ -1,4 +1,5 @@
-const CACHE_NAME = 'app';
+const CACHE_NAME = 'app-';
+const VERSION = 1;
 
 const urlsToCache = [
   '/',
@@ -15,11 +16,13 @@ const urlsToCache = [
 
 self.addEventListener('install', event => {
   event.waitUntil(
-    caches.open(CACHE_NAME)
+    caches.open(`${CACHE_NAME}${VERSION}`)
       .then(cache => {
         console.log('Saving URLs in Cache');
         return cache.addAll(urlsToCache);
-      }).then(self.skipWaiting())
+      }).then(() => {
+        caches.delete(`${CACHE_NAME}${VERSION - 1}`);
+      })
   );
 });
 
@@ -32,8 +35,9 @@ self.addEventListener('fetch', event => {
   );
 });
 
+/** Happens when all tabs are closed */
 self.addEventListener('activate', event => {
-  const cacheWhitelist = [CACHE_NAME];
+  const cacheWhitelist = [`${CACHE_NAME}${VERSION}`];
   event.waitUntil(
     caches.keys().then(cacheNames => {
       return Promise.all(
