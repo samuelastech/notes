@@ -10,4 +10,8 @@ class UserDAO {
   findOne() {
     return localStorage.getItem('userName');
   }
+
+  delete() {
+    localStorage.removeItem('userName');
+  }
 }

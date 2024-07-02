@@ -30,6 +30,11 @@ class AuthController {
     this.#goToNotes(user.name);
   }
 
+  signOut() {
+    this.#userDAO.delete();
+    location.reload();
+  }
+
   #goToNotes(userName) {
     this.#authView.unmount(userName);
     noteController = new NoteController();

@@ -15,7 +15,10 @@ class AuthView {
 
   #loggedTemplate(username) {
     return `
-      <p>Logado como <strong>${username}</strong></p>
+      <div>
+        <p>Logado como <strong>${username}</strong></p>
+        <button onclick="authController.signOut()">Sair</button>
+      </div>
     `;
   }
   
