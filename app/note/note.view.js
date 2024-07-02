@@ -1,15 +1,30 @@
 class NoteView {
-  #element;
+  #muralElement;
+  #formElement;
 
-  constructor({ element }) {
-    this.#element = element;
+  constructor({ muralElement, formElement }) {
+    this.#muralElement = muralElement;
+    this.#formElement = formElement;
   }
 
-  update(model) {
-    this.#element.innerHTML = this.#template(model);
+  mountNoteForm() {
+    this.#formElement.innerHTML = this.#noteFormTemplate();
   }
 
-  #template(model) {
+  mountMural(model) {
+    this.#muralElement.innerHTML = this.#muralTemplate(model);
+  }
+
+  #noteFormTemplate() {
+    return `
+      <form onsubmit="noteController.create(event)">
+        <input id="note" type="text" placeholder="Digite seu texto aqui" />
+        <button>Salvar</button>
+      </form>
+    `;
+  }
+
+  #muralTemplate(model) {
     return model.notes.map((note) => {
       return `
         <div>

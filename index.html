@@ -10,20 +10,25 @@
     <h1>Notes</h1>
   </header>
 
-  <form onsubmit="controller.create(event)">
-    <input id="note" type="text" placeholder="Digite aqui" />
-    <button>Salvar</button>
-  </form>
+  <div id="signInPlace"></div>
+  <div id="notesForm"></div>
 
   <section id="notesPlace">
   </section>
+
+  <script src="app/user/user.model.js"></script>
+  <script src="app/user/user.dao.js"></script>
 
   <script src="app/note/note-list.model.js"></script>
   <script src="app/note/note.model.js"></script>
   <script src="app/note/note.view.js"></script>
   <script src="app/note/note.controller.js"></script>
+
+  <script src="app/auth/auth.view.js"></script>
+  <script src="app/auth/auth.controller.js"></script>
   <script>
-    const controller = new NoteController();
+    var noteController = null;
+    var authController = new AuthController();
   </script>
 </body>
 </html>

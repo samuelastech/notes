@@ -4,11 +4,14 @@ class NoteController {
   #noteView;
 
   constructor() {
-    this.#inputNote = document.querySelector('#note');
     this.#noteList = new NoteList();
     this.#noteView = new NoteView({
-      element: document.querySelector('#notesPlace'),
+      muralElement: document.querySelector('#notesPlace'),
+      formElement: document.querySelector('#notesForm'),
     });
+    this.#noteView.mountNoteForm();
+    this.#noteView.mountMural(this.#noteList);
+    this.#inputNote = document.querySelector('#note');
   }
 
   /**
@@ -21,6 +24,6 @@ class NoteController {
       text: this.#inputNote.value,
     });
     this.#noteList.create(note);
-    this.#noteView.update(this.#noteList);
+    this.#noteView.mountMural(this.#noteList);
   }
 }
